@@ -622,7 +622,7 @@ p { margin: 0 0 1.1em; color: var(--muted); }
 .footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 24px 0 40px; font-size: .8rem; color: var(--muted); }
 .footer-big {
   font-family: var(--font-display); text-transform: uppercase; line-height: .8;
-  font-size: clamp(4rem, 19vw, 18rem); text-align: center; white-space: nowrap;
+  font-size: clamp(3rem, 14.5vw, 18rem); text-align: center; white-space: nowrap; padding: 0 var(--gutter);
   background: linear-gradient(180deg, rgba(255,255,255,.12), transparent 85%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
   margin-top: 30px; user-select: none; overflow: hidden;
@@ -699,3 +699,7 @@ p { margin: 0 0 1.1em; color: var(--muted); }
 }
 
 .stat strong .inf { display: inline-block; height: .55em; width: auto; vertical-align: middle; }
+
+@media (max-width: 600px) {
+  #intro .intro-hud { width: 90%; white-space: normal; letter-spacing: .25em; font-size: .62rem; line-height: 1.8; }
+}
