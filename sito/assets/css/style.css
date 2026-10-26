@@ -250,7 +250,7 @@ p { margin: 0 0 1.1em; color: var(--muted); }
 @keyframes scrollDot { 0% { opacity: 0; transform: translateY(0); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(14px); } }
 
 /* video stage that grows on scroll */
-.video-stage { padding: 0 var(--gutter); }
+.video-stage { padding: 40px var(--gutter) 0; }
 .video-frame {
   position: relative; overflow: hidden;
   border-radius: 40px;
@@ -630,7 +630,7 @@ p { margin: 0 0 1.1em; color: var(--muted); }
 
 /* ---------- floating WhatsApp ---------- */
 .wa-float {
-  position: fixed; left: 20px; bottom: 20px; z-index: 250;
+  position: fixed; right: 20px; bottom: 20px; z-index: 250;
   display: flex; align-items: center; gap: 10px;
   height: 60px; padding: 0 18px 0 16px; border-radius: 999px;
   background: var(--wa); color: #06331a; font-weight: 700;
@@ -697,3 +697,5 @@ p { margin: 0 0 1.1em; color: var(--muted); }
   position: absolute; right: 0; bottom: 0; width: 52%; aspect-ratio: 3 / 4;
   border: 6px solid var(--bg); box-shadow: 0 30px 80px -20px rgba(0,0,0,.8);
 }
+
+.stat strong .inf { display: inline-block; height: .55em; width: auto; vertical-align: middle; }
