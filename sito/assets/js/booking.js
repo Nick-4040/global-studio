@@ -4,7 +4,7 @@
    ========================================================== */
 const BOOKING = {
   whatsapp: "393318729602",
-  api: "", // URL dell'app web Google Apps Script (vuoto = solo WhatsApp)
+  api: "https://script.google.com/macros/s/AKfycbz1Tvz9faqLXRwfGRJlxcS7cRLvT6FtvrdoIbvomUjEog7cJggkcPt3SZZKebCNnf_K/exec", // URL dell'app web Google Apps Script (vuoto = solo WhatsApp)
   daysAhead: 60,   // how far in the future people can book
   minNoticeHours: 2, // no bookings starting sooner than this
   services: [
