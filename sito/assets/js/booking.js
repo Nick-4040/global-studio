@@ -4,6 +4,7 @@
    ========================================================== */
 const BOOKING = {
   whatsapp: "393318729602",
+  api: "", // URL dell'app web Google Apps Script (vuoto = solo WhatsApp)
   daysAhead: 60,   // how far in the future people can book
   minNoticeHours: 2, // no bookings starting sooner than this
   services: [
@@ -33,9 +34,15 @@ const BOOKING = {
   ],
 };
 
-// Hook for a real backend later: replace with a fetch() to your API / Google Calendar.
+// Orari occupati: dal calendario Google se BOOKING.api è impostato, altrimenti da BOOKING.busy.
 async function loadBusy() {
-  return BOOKING.busy;
+  if (!BOOKING.api) return BOOKING.busy;
+  try {
+    const r = await fetch(`${BOOKING.api}?action=busy&t=${Date.now()}`);
+    return (await r.json()).busy || {};
+  } catch (e) {
+    return BOOKING.busy;
+  }
 }
 
 (function () {
@@ -189,9 +196,45 @@ async function loadBusy() {
       f.notes.value.trim() ? `Note: ${f.notes.value.trim()}` : null,
     ].filter(Boolean).join("\n");
 
-    window.open(`https://wa.me/${BOOKING.whatsapp}?text=${encodeURIComponent(text)}`, "_blank");
-    el.msg.className = "form-msg ok";
-    el.msg.textContent = "Si è aperto WhatsApp con la richiesta: premi invio e ti confermiamo a breve!";
+    const openWhatsApp = () => {
+      window.open(`https://wa.me/${BOOKING.whatsapp}?text=${encodeURIComponent(text)}`, "_blank");
+      el.msg.className = "form-msg ok";
+      el.msg.textContent = "Si è aperto WhatsApp con la richiesta: premi invio e ti confermiamo a breve!";
+    };
+    if (!BOOKING.api) return openWhatsApp();
+
+    const btn = el.form.querySelector("button[type=submit]");
+    btn.disabled = true;
+    el.msg.className = "form-msg";
+    el.msg.textContent = "Invio in corso...";
+    const payload = {
+      service: service.name,
+      date: key(selectedDate),
+      hours,
+      name: f.name.value.trim(),
+      phone: f.phone.value.trim(),
+      artist: f.artist.value.trim(),
+      notes: f.notes.value.trim(),
+    };
+    fetch(BOOKING.api, { method: "POST", body: JSON.stringify(payload) })
+      .then((r) => r.json())
+      .then(async (res) => {
+        if (res.ok) {
+          el.msg.className = "form-msg ok";
+          el.msg.textContent = "Richiesta inviata! Gli orari scelti sono già bloccati: ti confermiamo a breve.";
+          selectedSlots.clear();
+          el.form.reset();
+        } else if (res.error === "taken") {
+          err("Questo orario è appena stato prenotato da qualcun altro. Scegline un altro.");
+          selectedSlots.clear();
+        } else {
+          throw new Error(res.error);
+        }
+        busy = await loadBusy();
+        renderCalendar(); renderSlots(); renderSummary();
+      })
+      .catch(openWhatsApp)
+      .finally(() => (btn.disabled = false));
   });
 
   loadBusy().then((b) => {
