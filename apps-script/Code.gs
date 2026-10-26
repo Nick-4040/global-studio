@@ -110,36 +110,17 @@ function checkRequests() {
     try { ev = cal.getEventById(id); } catch (e) { ev = null; }
     const when = p.date.split("-").reverse().join("/") + " dalle " + p.from + " alle " + p.to;
     if (ev && ev.getTitle().toUpperCase().indexOf("RICHIESTA") === 0) return; // ancora in attesa
-    if (ev) {
-      MailApp.sendEmail({
-        to: p.email,
-        subject: "Prenotazione confermata - Global Studio",
-        body: "Ciao " + p.name + ",
-
-la tua prenotazione è confermata:
-" + p.service + " - " + when +
-          "
-
-Ci trovi in Piazzale Ravenet 3, Parma. Per qualsiasi cosa scrivici su WhatsApp al +39 331 872 9602.
-
-A presto!
-Global Studio",
-        name: "Global Studio",
-      });
-    } else {
-      MailApp.sendEmail({
-        to: p.email,
-        subject: "Prenotazione non disponibile - Global Studio",
-        body: "Ciao " + p.name + ",
-
-purtroppo non riusciamo a confermare la richiesta per " + p.service + " - " + when +
-          ".
-Scegli un altro orario su https://nick-4040.github.io/global-studio/prenota.html oppure scrivici su WhatsApp al +39 331 872 9602.
-
-Global Studio",
-        name: "Global Studio",
-      });
-    }
+    const lines = ev
+      ? ["Ciao " + p.name + ",", "", "la tua prenotazione è confermata:", p.service + " - " + when, "",
+         "Ci trovi in Piazzale Ravenet 3, Parma. Per qualsiasi cosa scrivici su WhatsApp al +39 331 872 9602.", "", "A presto!", "Global Studio"]
+      : ["Ciao " + p.name + ",", "", "purtroppo non riusciamo a confermare la richiesta per " + p.service + " - " + when + ".",
+         "Scegli un altro orario su https://nick-4040.github.io/global-studio/prenota.html oppure scrivici su WhatsApp al +39 331 872 9602.", "", "Global Studio"];
+    MailApp.sendEmail({
+      to: p.email,
+      subject: ev ? "Prenotazione confermata - Global Studio" : "Prenotazione non disponibile - Global Studio",
+      body: lines.join("\n"),
+      name: "Global Studio",
+    });
     delete pending[id];
   });
   props.setProperty("pending", JSON.stringify(pending));
