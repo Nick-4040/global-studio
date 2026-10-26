@@ -106,8 +106,10 @@ function checkRequests() {
   const cal = calendar_();
   Object.keys(pending).forEach((id) => {
     const p = pending[id];
-    let ev = null;
-    try { ev = cal.getEventById(id); } catch (e) { ev = null; }
+    // gli eventi eliminati possono ancora essere restituiti da getEventById: cerco l'evento nella sua fascia oraria
+    const from = Utilities.parseDate(p.date + " " + p.from, TZ, "yyyy-MM-dd HH:mm");
+    const to = Utilities.parseDate(p.date + " " + p.to, TZ, "yyyy-MM-dd HH:mm");
+    const ev = cal.getEvents(from, to).filter((x) => x.getId() === id)[0] || null;
     const when = p.date.split("-").reverse().join("/") + " dalle " + p.from + " alle " + p.to;
     if (ev && ev.getTitle().toUpperCase().indexOf("RICHIESTA") === 0) return; // ancora in attesa
     const lines = ev
