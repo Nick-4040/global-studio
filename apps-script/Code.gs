@@ -64,16 +64,23 @@ function doPost(e) {
       "Servizio: " + clean(d.service),
       "Nome: " + clean(d.name),
       "Telefono: " + clean(d.phone),
+      "Email: " + clean(d.email),
       d.artist ? "Nome d'arte: " + clean(d.artist) : "",
       d.notes ? "Note: " + clean(d.notes) : "",
       "",
       "Per confermare: togli \"RICHIESTA\" dal titolo. Per rifiutare: elimina l'evento (lo slot torna libero).",
     ].filter((l) => l !== "").join("\n");
 
+    const email = clean(d.email).trim();
+    const pending = JSON.parse(PropertiesService.getScriptProperties().getProperty("pending") || "{}");
     groups.forEach((g) => {
       const ev = cal.createEvent("RICHIESTA - " + clean(d.service) + " - " + clean(d.name), at(g[0]), plusHour(g[g.length - 1]), { description: description });
       ev.addPopupReminder(30);
+      if (/^\S+@\S+\.\S+$/.test(email)) {
+        pending[ev.getId()] = { email: email, name: clean(d.name), service: clean(d.service), date: d.date, from: g[0], to: Utilities.formatDate(plusHour(g[g.length - 1]), TZ, "HH:mm") };
+      }
     });
+    PropertiesService.getScriptProperties().setProperty("pending", JSON.stringify(pending));
 
     MailApp.sendEmail(
       Session.getEffectiveUser().getEmail(),
@@ -86,6 +93,62 @@ function doPost(e) {
   } finally {
     lock.releaseLock();
   }
+}
+
+/**
+ * Ogni 5 minuti: per ogni richiesta in attesa guarda cosa ha fatto l'amministratore.
+ *  - titolo senza "RICHIESTA"  -> email di conferma al cliente
+ *  - evento eliminato          -> email di rifiuto al cliente
+ */
+function checkRequests() {
+  const props = PropertiesService.getScriptProperties();
+  const pending = JSON.parse(props.getProperty("pending") || "{}");
+  const cal = calendar_();
+  Object.keys(pending).forEach((id) => {
+    const p = pending[id];
+    let ev = null;
+    try { ev = cal.getEventById(id); } catch (e) { ev = null; }
+    const when = p.date.split("-").reverse().join("/") + " dalle " + p.from + " alle " + p.to;
+    if (ev && ev.getTitle().toUpperCase().indexOf("RICHIESTA") === 0) return; // ancora in attesa
+    if (ev) {
+      MailApp.sendEmail({
+        to: p.email,
+        subject: "Prenotazione confermata - Global Studio",
+        body: "Ciao " + p.name + ",
+
+la tua prenotazione è confermata:
+" + p.service + " - " + when +
+          "
+
+Ci trovi in Piazzale Ravenet 3, Parma. Per qualsiasi cosa scrivici su WhatsApp al +39 331 872 9602.
+
+A presto!
+Global Studio",
+        name: "Global Studio",
+      });
+    } else {
+      MailApp.sendEmail({
+        to: p.email,
+        subject: "Prenotazione non disponibile - Global Studio",
+        body: "Ciao " + p.name + ",
+
+purtroppo non riusciamo a confermare la richiesta per " + p.service + " - " + when +
+          ".
+Scegli un altro orario su https://nick-4040.github.io/global-studio/prenota.html oppure scrivici su WhatsApp al +39 331 872 9602.
+
+Global Studio",
+        name: "Global Studio",
+      });
+    }
+    delete pending[id];
+  });
+  props.setProperty("pending", JSON.stringify(pending));
+}
+
+/** Esegui una volta: crea il controllo automatico ogni 5 minuti. */
+function installTrigger() {
+  ScriptApp.getProjectTriggers().forEach((t) => ScriptApp.deleteTrigger(t));
+  ScriptApp.newTrigger("checkRequests").timeBased().everyMinutes(5).create();
 }
 
 /** Esegui una volta dall'editor per concedere i permessi e creare il calendario. */

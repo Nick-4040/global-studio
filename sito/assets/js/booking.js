@@ -182,6 +182,7 @@ async function loadBusy() {
     if (!selectedDate || !selectedSlots.size) return err("Scegli una data e almeno un orario.");
     if (!f.name.value.trim()) return err("Inserisci il tuo nome.");
     if (!/^[+\d\s]{8,}$/.test(f.phone.value.trim())) return err("Inserisci un numero di telefono valido.");
+    if (!/^\S+@\S+\.\S+$/.test(f.email.value.trim())) return err("Inserisci un'email valida: ti mandiamo lì la conferma.");
 
     const service = currentService();
     const hours = [...selectedSlots].sort();
@@ -192,6 +193,7 @@ async function loadBusy() {
       `Orari: ${hours.join(", ")} (${hours.length}h)`,
       `Nome: ${f.name.value.trim()}`,
       `Telefono: ${f.phone.value.trim()}`,
+      `Email: ${f.email.value.trim()}`,
       f.artist.value.trim() ? `Nome d'arte: ${f.artist.value.trim()}` : null,
       f.notes.value.trim() ? `Note: ${f.notes.value.trim()}` : null,
     ].filter(Boolean).join("\n");
@@ -213,6 +215,7 @@ async function loadBusy() {
       hours,
       name: f.name.value.trim(),
       phone: f.phone.value.trim(),
+      email: f.email.value.trim(),
       artist: f.artist.value.trim(),
       notes: f.notes.value.trim(),
     };
@@ -221,7 +224,7 @@ async function loadBusy() {
       .then(async (res) => {
         if (res.ok) {
           el.msg.className = "form-msg ok";
-          el.msg.textContent = "Richiesta inviata! Gli orari scelti sono già bloccati: ti confermiamo a breve.";
+          el.msg.textContent = "Richiesta inviata! Gli orari scelti sono bloccati per te: riceverai una email appena la confermiamo.";
           selectedSlots.clear();
           el.form.reset();
         } else if (res.error === "taken") {
@@ -233,7 +236,7 @@ async function loadBusy() {
         busy = await loadBusy();
         renderCalendar(); renderSlots(); renderSummary();
       })
-      .catch(openWhatsApp)
+      .catch(() => err("Invio non riuscito. Riprova tra poco oppure scrivici su WhatsApp."))
       .finally(() => (btn.disabled = false));
   });
 
