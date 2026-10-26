@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prenota ora — Global Studio</title>
+  <meta name="description" content="Prenota una sessione di registrazione, uno shooting o l'affitto sala a Global Studio, Parma.">
+  <link rel="icon" href="assets/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="prenota.html">
+  <header id="site-header"></header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow reveal">Prenota ora</span>
+        <h1 class="split-words">Blocca <br><span class="grad">la tua data</span></h1>
+        <p class="lead reveal">Scegli servizio, giorno e orari. La richiesta ci arriva su WhatsApp e ti confermiamo in pochi minuti.</p>
+      </div>
+      <div class="bg-word">Book</div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="container booking" id="booking">
+        <div class="panel reveal">
+          <h3><span class="n">1</span> Servizio</h3>
+          <div class="service-pick"></div>
+
+          <h3><span class="n">2</span> Giorno</h3>
+          <div class="cal-head">
+            <button type="button" class="cal-nav cal-prev" aria-label="Mese precedente">‹</button>
+            <strong></strong>
+            <button type="button" class="cal-nav cal-next" aria-label="Mese successivo">›</button>
+          </div>
+          <div class="cal-grid"></div>
+          <div class="cal-legend">
+            <span><i style="background:rgba(255,255,255,.12)"></i>Disponibile</span>
+            <span><i style="background:linear-gradient(135deg,#7b3cff,#e040fb)"></i>Selezionato</span>
+            <span><i style="background:#f2c25b;border-radius:50%"></i>Oggi</span>
+          </div>
+        </div>
+
+        <form class="panel reveal" data-reveal="right" novalidate>
+          <h3><span class="n">3</span> Orario</h3>
+          <p class="day-label" style="color:var(--text);margin-bottom:6px"></p>
+          <div class="slots-wrap"></div>
+
+          <h3><span class="n">4</span> I tuoi dati</h3>
+          <div class="form-grid">
+            <div class="field"><label for="b-name">Nome</label><input id="b-name" name="name" autocomplete="name" required></div>
+            <div class="field"><label for="b-phone">Telefono</label><input id="b-phone" name="phone" type="tel" autocomplete="tel" required></div>
+            <div class="field full"><label for="b-artist">Nome d'arte (opzionale)</label><input id="b-artist" name="artist"></div>
+            <div class="field full"><label for="b-notes">Note</label><textarea id="b-notes" name="notes" placeholder="Cosa vuoi registrare? Hai già le basi?"></textarea></div>
+          </div>
+          <div class="summary"></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
+            Invia richiesta su WhatsApp
+          </button>
+          <div class="form-msg" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/booking.js"></script>
+</body>
+</html>

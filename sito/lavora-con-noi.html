@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lavora con noi — Global Studio</title>
+  <meta name="description" content="Entra nel team di Global Studio: fonici, producer, fotografi, videomaker e social media manager.">
+  <link rel="icon" href="assets/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="lavora-con-noi.html">
+  <header id="site-header"></header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow reveal">Lavora con noi</span>
+        <h1 class="split-words">Unisciti <br><span class="grad">al globo</span></h1>
+        <p class="lead reveal">Cerchiamo persone creative, affidabili e affamate. Se vuoi crescere in uno studio che lavora ogni giorno con artisti veri, scrivici.</p>
+      </div>
+      <div class="bg-word">Join us</div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <span class="eyebrow reveal">Posizioni aperte</span>
+        <div class="jobs" data-stagger>
+          <div class="job" data-role="Fonico / Sound engineer"><span class="idx">01</span><div><h3>Fonico / Sound engineer</h3><p>Registrazione, editing e mix delle sessioni in studio.</p></div></div>
+          <div class="job" data-role="Producer"><span class="idx">02</span><div><h3>Producer</h3><p>Beat, arrangiamenti e direzione artistica dei progetti.</p></div></div>
+          <div class="job" data-role="Fotografo"><span class="idx">03</span><div><h3>Fotografo</h3><p>Shooting per cover, promo e press kit in sala posa.</p></div></div>
+          <div class="job" data-role="Videomaker"><span class="idx">04</span><div><h3>Videomaker</h3><p>Videoclip, reel e contenuti verticali per gli artisti.</p></div></div>
+          <div class="job" data-role="Social media manager"><span class="idx">05</span><div><h3>Social media manager</h3><p>Racconta lo studio e i suoi artisti su Instagram e TikTok.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0" id="candidati">
+      <div class="container split">
+        <div>
+          <span class="eyebrow reveal">Candidati</span>
+          <h2 class="split-words">Raccontaci <span class="outline">chi sei</span></h2>
+          <p class="lead reveal">Compila il modulo: la candidatura ci arriva direttamente su WhatsApp. Allega portfolio, link a SoundCloud, YouTube o Instagram.</p>
+        </div>
+        <form class="panel reveal" id="job-form" novalidate>
+          <div class="form-grid">
+            <div class="field"><label for="j-name">Nome e cognome</label><input id="j-name" required></div>
+            <div class="field"><label for="j-age">Età</label><input id="j-age" type="number" min="14" max="99"></div>
+            <div class="field full"><label for="j-role">Ruolo</label>
+              <select id="j-role">
+                <option>Fonico / Sound engineer</option>
+                <option>Producer</option>
+                <option>Fotografo</option>
+                <option>Videomaker</option>
+                <option>Social media manager</option>
+                <option>Candidatura spontanea</option>
+              </select>
+            </div>
+            <div class="field full"><label for="j-link">Portfolio / link</label><input id="j-link" placeholder="https://"></div>
+            <div class="field full"><label for="j-msg">Su di te</label><textarea id="j-msg" required placeholder="Esperienze, software che usi, disponibilità..."></textarea></div>
+          </div>
+          <button class="btn btn-primary" style="margin-top:20px" type="submit">Invia candidatura</button>
+          <div class="form-msg" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="assets/js/main.js"></script>
+  <script>
+    const form = document.getElementById("job-form");
+    const msg = form.querySelector(".form-msg");
+    document.querySelectorAll(".job").forEach((job) =>
+      job.addEventListener("click", () => {
+        document.getElementById("j-role").value = job.dataset.role;
+        document.getElementById("candidati").scrollIntoView({ behavior: "smooth" });
+      })
+    );
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const v = (id) => document.getElementById(id).value.trim();
+      if (!v("j-name") || !v("j-msg")) {
+        msg.className = "form-msg err";
+        msg.textContent = "Inserisci almeno nome e qualcosa su di te.";
+        return;
+      }
+      const text = [
+        "*Candidatura — Lavora con noi*",
+        `Nome: ${v("j-name")}`,
+        v("j-age") ? `Età: ${v("j-age")}` : null,
+        `Ruolo: ${v("j-role")}`,
+        v("j-link") ? `Portfolio: ${v("j-link")}` : null,
+        "",
+        v("j-msg"),
+      ].filter((l) => l !== null).join("\n");
+      window.open(`https://wa.me/393318729602?text=${encodeURIComponent(text)}`, "_blank");
+      msg.className = "form-msg ok";
+      msg.textContent = "Perfetto! Si è aperto WhatsApp con la tua candidatura: premi invio.";
+    });
+  </script>
+</body>
+</html>

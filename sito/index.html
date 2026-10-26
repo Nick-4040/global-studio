@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Studio — Recording Studio a Parma</title>
+  <meta name="description" content="Global Studio, studio di registrazione a Parma: produzione, registrazione, mix e master, shooting foto e video, affitto sala di registrazione e sala posa.">
+  <link rel="icon" href="assets/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="index.html">
+
+  <!-- INTRO: dallo spazio fino all'impatto -->
+  <div id="intro" aria-hidden="true">
+    <canvas></canvas>
+    <div class="flash"></div>
+    <div class="intro-hud">Global Studio · 44.80° N — 10.32° E · Parma</div>
+    <button class="intro-skip">Salta</button>
+  </div>
+
+  <header id="site-header"></header>
+
+  <main>
+    <!-- HERO con logo -->
+    <section class="hero">
+      <div class="hero-bg">
+        <video src="assets/video/prima-pagina.mp4" muted loop playsinline preload="auto" poster="assets/img/affitto-studio.jpg"></video>
+        <canvas></canvas>
+      </div>
+      <div>
+        <img src="assets/img/logo.png" alt="Global Studio" class="hero-logo">
+        <div class="hero-tags" data-stagger>
+          <span>Prod</span><span>Rec</span><span>Mix &amp; Master</span><span>Foto</span><span>Video</span><span>Affitto sale</span>
+        </div>
+        <div class="hero-actions">
+          <a href="prenota.html" class="btn btn-primary magnetic">Prenota una sessione <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="servizi.html" class="btn magnetic">Scopri i servizi</a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- STATS -->
+    <section class="container">
+      <div class="stats reveal">
+        <div class="stat"><strong data-count="3">0</strong><span>Spazi creativi</span></div>
+        <div class="stat"><strong data-count="6">0</strong><span>Servizi</span></div>
+        <div class="stat"><strong class="gold">1</strong><span>Globo acceso</span></div>
+        <div class="stat"><strong>∞</strong><span>Vibes</span></div>
+      </div>
+    </section>
+
+    <!-- LO STUDIO -->
+    <section class="section">
+      <div class="container split">
+        <div>
+          <span class="eyebrow reveal">Lo studio</span>
+          <h2 class="split-words">Un mondo intero <span class="grad">dedicato al tuo suono</span></h2>
+          <p class="lead reveal">Global Studio nasce a Parma come punto d'incontro per artisti, producer e creativi. Un unico spazio dove scrivi, registri, mixi e masterizzi il tuo pezzo — e poi lo racconti con foto e video.</p>
+          <ul class="feature-list" data-stagger>
+            <li>Regia trattata acusticamente con monitor di precisione</li>
+            <li>Catena di registrazione Universal Audio Apollo</li>
+            <li>Sala posa con fondali e luci professionali</li>
+            <li>Chill area per staccare tra una take e l'altra</li>
+          </ul>
+          <a href="about.html" class="btn magnetic reveal">Chi siamo <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="stack">
+          <div class="media tall reveal" data-reveal="clip">
+            <img src="assets/img/affitto-studio.jpg" alt="La regia di Global Studio" loading="lazy">
+            <span class="media-tag">Regia</span>
+          </div>
+          <div class="media square float reveal" data-reveal="zoom">
+            <img src="assets/img/prod-rec-mix-master.jpg" alt="Scheda audio Apollo Solo" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHILL AREA -->
+    <section class="section">
+      <div class="container split reverse">
+        <div>
+          <span class="eyebrow reveal">Chill area</span>
+          <h2 class="split-words">Respira. <span class="outline">Poi torna</span> in cabina.</h2>
+          <p class="lead reveal">Tra una session e l'altra c'è la chill area: divani in velluto, luce calda, quadri, la console sempre pronta. Il posto giusto per ascoltare i bounce, parlare di idee o semplicemente ricaricarsi.</p>
+          <a href="prenota.html" class="btn btn-gold magnetic reveal">Vieni a trovarci</a>
+        </div>
+        <div class="overlap">
+          <div class="media tall main">
+            <img src="assets/img/chill-area.jpg" alt="Chill area con divani" loading="lazy">
+          </div>
+          <div class="media tall sub">
+            <img src="assets/img/chill-area-2.jpg" alt="Chill area con console" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARTISTI -->
+    <section class="section">
+      <div class="container split">
+        <div class="media wide reveal" data-reveal="zoom">
+          <img src="assets/img/artisti-2.jpg" alt="Artisti in studio" loading="lazy">
+          <span class="media-tag">Artisti</span>
+        </div>
+        <div>
+          <span class="eyebrow reveal">Chi è passato di qui</span>
+          <h2 class="split-words">Gli artisti <span class="grad">di Global</span></h2>
+          <p class="lead reveal">Rapper, cantanti, producer e band: ogni progetto ha la sua identità. Guarda le collaborazioni, i videoclip e gli shooting realizzati in studio.</p>
+          <a href="progetti.html" class="btn btn-primary magnetic reveal">Vedi i progetti <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SERVIZI preview -->
+    <section class="section">
+      <div class="container">
+        <span class="eyebrow reveal">Servizi</span>
+        <h2 class="split-words">Tutto quello che <span class="outline">serve</span></h2>
+        <div class="svc-grid" data-stagger style="margin-top:50px">
+          <a href="servizi.html#prod" class="svc-card">
+            <img src="assets/img/prod-rec-mix-master.jpg" alt="" loading="lazy">
+            <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <div class="svc-body"><h3>Prod · Rec · Mix · Master</h3><p>Il suono che meriti.</p></div>
+          </a>
+          <a href="servizi.html#foto" class="svc-card">
+            <img src="assets/img/shooting.jpg" alt="" loading="lazy">
+            <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <div class="svc-body"><h3>Zona fotografica</h3><p>Fatti notare prima ancora di essere ascoltato.</p></div>
+          </a>
+          <a href="servizi.html#affitto" class="svc-card">
+            <img src="assets/img/affitto-studio.jpg" alt="" loading="lazy">
+            <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <div class="svc-body"><h3>Affitto studio</h3><p>Sala di registrazione e sala posa, a ore.</p></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="container">
+      <div class="cta-band reveal" data-reveal="zoom">
+        <h2>Pronto a <span class="gold">registrare?</span></h2>
+        <p class="lead">Scegli giorno e orario, ti confermiamo in pochi minuti.</p>
+        <a href="prenota.html" class="btn btn-gold magnetic">Prenota ora <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
