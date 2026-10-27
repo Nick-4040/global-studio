@@ -1,0 +1,95 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&display=block" rel="stylesheet">
+<style>
+  :root { --bg:#07040f; --violet:#7b3cff; --violet-2:#b06bff; --magenta:#e040fb; --gold:#d6a034; --gold-2:#f2c25b; --text:#f4f1fb; --muted:#a69cc0; }
+  html, body { margin:0; width:1920px; height:1080px; overflow:hidden; font-family:"Space Grotesk", sans-serif; color:var(--text); }
+  body.solid { background:
+      radial-gradient(ellipse 45% 60% at 88% 8%, rgba(123,60,255,.45), transparent 70%),
+      radial-gradient(ellipse 40% 45% at 0% 100%, rgba(214,160,52,.16), transparent 70%),
+      var(--bg); }
+  body.clear { background:transparent; }
+  .card { display:none !important; position:absolute; inset:0; }
+  .card.on { display:block !important; }
+  .card.on.center { display:grid !important; }
+  .center { place-items:center; text-align:center; }
+  .logo { width:440px; filter:drop-shadow(0 0 50px rgba(176,107,255,.5)); }
+  .eyebrow { display:inline-flex; align-items:center; gap:18px; font-size:22px; letter-spacing:.35em; text-transform:uppercase; color:var(--gold-2); }
+  .eyebrow::before, .eyebrow.both::after { content:""; width:56px; height:2px; background:currentColor; }
+  h1, h2 { font-family:Anton, sans-serif; font-weight:400; text-transform:uppercase; line-height:.95; margin:0; }
+  .grad { background:linear-gradient(100deg, var(--violet-2), var(--magenta) 45%, var(--gold-2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .muted { color:var(--muted); letter-spacing:.3em; text-transform:uppercase; font-size:18px; }
+  .rings { position:absolute; width:1400px; height:1400px; left:50%; top:100%; transform:translate(-50%,-38%); border-radius:50%;
+    background:repeating-radial-gradient(circle, rgba(214,160,52,.22) 0 1px, transparent 1px 44px); }
+  .bg-word { position:absolute; right:-30px; bottom:-90px; font-family:Anton; font-size:430px; line-height:.8; color:transparent;
+    -webkit-text-stroke:2px rgba(255,255,255,.06); text-transform:uppercase; }
+
+  /* mobile page */
+  .copy { position:absolute; left:150px; top:50%; transform:translateY(-50%); width:820px; }
+  .copy h2 { font-size:118px; margin:34px 0 34px; }
+  .copy p { font-size:27px; line-height:1.55; color:rgba(244,241,251,.85); margin:0 0 34px; max-width:720px; }
+  .copy ul { list-style:none; padding:0; margin:0; display:grid; gap:18px; font-size:24px; }
+  .copy li { display:flex; gap:16px; align-items:center; }
+  .copy li::before { content:""; width:12px; height:12px; border-radius:50%; background:linear-gradient(135deg,var(--violet-2),var(--gold-2)); box-shadow:0 0 14px var(--violet-2); }
+  /* screen 426x922 at (1200, 79) */
+  .phone-shadow { position:absolute; left:1186px; top:65px; width:454px; height:950px; border-radius:70px; background:#0d0a18;
+    box-shadow:0 0 140px rgba(123,60,255,.55), 0 50px 120px rgba(0,0,0,.7); }
+  .bezel { position:absolute; left:1186px; top:65px; width:426px; height:922px; border:14px solid #0d0a18; border-radius:70px; }
+  .bezel::before { content:""; position:absolute; inset:-15px; border-radius:72px; padding:2px;
+    background:linear-gradient(135deg, rgba(176,107,255,.9), rgba(255,255,255,.12) 50%, rgba(242,194,91,.9));
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; }
+  .island { position:absolute; left:50%; top:12px; width:104px; height:30px; margin-left:-52px; border-radius:15px; background:#000; }
+</style></head>
+<body>
+  <!-- title -->
+  <section class="card center" id="title">
+    <div class="rings"></div>
+    <div>
+      <div class="eyebrow both">Presentazione sito web</div>
+      <div style="height:56px"></div>
+      <img class="logo" src="assets/logo.png" alt="">
+      <div style="height:60px"></div>
+      <h2 style="font-size:64px">Il nuovo sito di <span class="grad">Global Studio</span></h2>
+      <div style="height:30px"></div>
+      <div class="muted">Versione desktop &amp; mobile · Ottobre 2026</div>
+    </div>
+  </section>
+
+  <!-- mobile page background (screen area stays black under the video) -->
+  <section class="card" id="mbg">
+    <div class="bg-word">Mobile</div>
+    <div class="copy">
+      <div class="eyebrow">Versione mobile</div>
+      <h2>Perfetto su <br><span class="grad">ogni smartphone</span></h2>
+      <p>Lo stesso sito, ripensato per il telefono: tutto a portata di pollice, dalla home alla prenotazione.</p>
+      <ul>
+        <li>Intro animata con il globo</li>
+        <li>Menu a schermo intero</li>
+        <li>Prezzi a schede</li>
+        <li>Calendario e orari per prenotare</li>
+        <li>WhatsApp sempre a un tocco</li>
+      </ul>
+    </div>
+    <div class="phone-shadow"></div>
+  </section>
+
+  <!-- bezel drawn on top of the video -->
+  <section class="card" id="mframe"><div class="bezel"><div class="island"></div></div></section>
+
+  <!-- end -->
+  <section class="card center" id="end">
+    <div class="rings"></div>
+    <div>
+      <img class="logo" src="assets/logo.png" alt="" style="width:380px">
+      <div style="height:64px"></div>
+      <h2 style="font-size:96px">Grazie per <span class="grad">la visione</span></h2>
+      <div style="height:34px"></div>
+      <div class="muted">Prod · Rec · Mix · Master · Foto · Video</div>
+    </div>
+  </section>
+<script>
+  const id = location.hash.slice(1);
+  document.body.className = id === "mframe" ? "clear" : "solid";
+  document.getElementById(id).classList.add("on");
+</script>
+</body></html>
