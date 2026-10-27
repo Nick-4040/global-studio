@@ -3,8 +3,6 @@
 Riepilogo per chi crea materiale grafico coerente con il sito (post, copertine, locandine, video).
 Sito: https://nick-4040.github.io/global-studio/ · Instagram [@globalstudio.eu](https://www.instagram.com/globalstudio.eu/)
 
-**Mood:** notte, neon viola, calore dorato. Un mondo (il globo) che gira intorno alla musica. Tono diretto, giovane, da trap/rap, ma pulito e professionale.
-
 ## Colori
 
 | Nome | HEX | Uso |
@@ -21,8 +19,6 @@ Sito: https://nick-4040.github.io/global-studio/ · Instagram [@globalstudio.eu]
 | Oro chiaro | `#F2C25B` | Etichette, numeri, accenti, parola in evidenza |
 | Linee | bianco al 9% | Bordi sottili |
 
-(`#25D366`, il verde WhatsApp, è usato solo per il bottone WhatsApp.)
-
 **Gradiente firma** (parole evidenziate): da `#B06BFF` a `#E040FB` (45%) a `#F2C25B`, inclinato di 100°.
 **Gradiente pulsante principale:** da `#7B3CFF` a `#E040FB`, con ombra viola.
 **Gradiente pulsante oro:** da `#D6A034` a `#F2C25B`, testo scuro `#1A1205`.
@@ -30,8 +26,6 @@ Sito: https://nick-4040.github.io/global-studio/ · Instagram [@globalstudio.eu]
 **Regola:** sfondo scuro, viola/magenta per l'azione, oro per accenti e invito finale (es. "Prenota ora"). Nessun altro colore.
 
 ## Font
-
-Entrambi gratuiti su Google Fonts.
 
 | Ruolo | Font | Stile |
 |---|---|---|
@@ -67,9 +61,3 @@ Gerarchia (dimensioni fluide sul sito, valori massimi su desktop):
 
 `sito/assets/img/logo.png` (PNG trasparente): scritta GLOBAL bianca, globo e "STUDIO" oro. Sempre su fondo scuro, con leggero glow viola. Non ricolorarlo.
 
-## Testi
-
-Italiano, frasi brevi e dirette. Slogan: **"Il mondo gira qui"**, "Il globo è sempre acceso", "Dall'idea al release", "Passati da qui", "Il prossimo sei tu".
-Servizi: **Prod · Rec · Mix · Master · Foto · Video · Affitto sale**.
-
-Fonte di tutti i valori: `sito/assets/css/style.css` (variabili in `:root`).
