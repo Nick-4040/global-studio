@@ -128,9 +128,14 @@ function checkRequests() {
   props.setProperty("pending", JSON.stringify(pending));
 }
 
-/** Esegui una volta: crea il controllo automatico ogni 5 minuti. */
+/**
+ * Esegui una volta: crea i controlli automatici.
+ *  - subito: scatta ad ogni modifica/eliminazione di un evento nel calendario (di solito entro pochi secondi)
+ *  - ogni 5 minuti: rete di sicurezza, nel caso la notifica del calendario non arrivi
+ */
 function installTrigger() {
   ScriptApp.getProjectTriggers().forEach((t) => ScriptApp.deleteTrigger(t));
+  ScriptApp.newTrigger("checkRequests").forUserCalendar(calendar_().getId()).onEventUpdated().create();
   ScriptApp.newTrigger("checkRequests").timeBased().everyMinutes(5).create();
 }
 
