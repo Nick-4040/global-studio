@@ -10,6 +10,17 @@ const SITE = {
   mapsQuery: "Piazzale Ravenet 3, 43125 Parma",
 };
 
+// Contatore visite: nessun cookie, nessun dato personale, solo "pagina + giorno = numero".
+const STATS_API = "https://script.google.com/macros/s/AKfycbz1Tvz9faqLXRwfGRJlxcS7cRLvT6FtvrdoIbvomUjEog7cJggkcPt3SZZKebCNnf_K/exec";
+(function countVisit() {
+  const local = ["localhost", "127.0.0.1", ""].includes(location.hostname);
+  if (local || navigator.doNotTrack === "1") return;
+  const page = (location.pathname.split("/").pop() || "index.html").replace(/\.html$/, "") || "index";
+  try {
+    fetch(STATS_API, { method: "POST", mode: "no-cors", keepalive: true, body: JSON.stringify({ action: "hit", page }) });
+  } catch (e) { /* le statistiche non devono mai rompere il sito */ }
+})();
+
 const NAV = [
   ["index.html", "Home"],
   ["servizi.html", "Servizi"],
@@ -379,7 +390,7 @@ function intro() {
   const hud = el.querySelector(".intro-hud");
   const flash = el.querySelector(".flash");
   const earth = new Image();
-  earth.src = "assets/img/earth.png";
+  earth.src = "assets/img/earth.webp";
 
   const DPR = Math.min(devicePixelRatio || 1, 2);
   let W, H;

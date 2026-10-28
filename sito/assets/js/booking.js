@@ -218,6 +218,7 @@ async function loadBusy() {
       email: f.email.value.trim(),
       artist: f.artist.value.trim(),
       notes: f.notes.value.trim(),
+      website: f.website.value, // trappola antispam: i visitatori veri la lasciano vuota
     };
     fetch(BOOKING.api, { method: "POST", body: JSON.stringify(payload) })
       .then((r) => r.json())
@@ -227,6 +228,8 @@ async function loadBusy() {
           el.msg.textContent = "Richiesta inviata! Gli orari scelti sono bloccati per te: riceverai una email appena la confermiamo.";
           selectedSlots.clear();
           el.form.reset();
+        } else if (res.error === "limit") {
+          err("Hai già alcune richieste in attesa di conferma. Aspetta la nostra risposta oppure scrivici su WhatsApp.");
         } else if (res.error === "taken") {
           err("Questo orario è appena stato prenotato da qualcun altro. Scegline un altro.");
           selectedSlots.clear();

@@ -39,12 +39,15 @@ function doPost(e) {
   lock.waitLock(20000);
   try {
     const d = JSON.parse(e.postData.contents);
+    if (d.action === "hit") return json_(countHit_(d.page));
+    if (d.website) return json_({ ok: true }); // campo trappola compilato da un bot: finto successo, nessuna prenotazione
     const hours = (d.hours || []).slice().sort();
     if (!/^\d{4}-\d{2}-\d{2}$/.test(d.date) || !hours.length || hours.length > 12 ||
         !hours.every((h) => /^\d{2}:00$/.test(h)) || !String(d.name || "").trim()) {
       return json_({ ok: false, error: "invalid" });
     }
     const cal = calendar_();
+    if (tooManyPending_(d)) return json_({ ok: false, error: "limit" });
     const at = (h) => Utilities.parseDate(d.date + " " + h, TZ, "yyyy-MM-dd HH:mm");
     const plusHour = (h) => new Date(at(h).getTime() + 3600000);
 
@@ -77,7 +80,7 @@ function doPost(e) {
       const ev = cal.createEvent("RICHIESTA - " + clean(d.service) + " - " + clean(d.name), at(g[0]), plusHour(g[g.length - 1]), { description: description });
       ev.addPopupReminder(30);
       if (/^\S+@\S+\.\S+$/.test(email)) {
-        pending[ev.getId()] = { email: email, name: clean(d.name), service: clean(d.service), date: d.date, from: g[0], to: Utilities.formatDate(plusHour(g[g.length - 1]), TZ, "HH:mm") };
+        pending[ev.getId()] = { email: email, phone: String(d.phone || "").replace(/\D/g, ""), name: clean(d.name), service: clean(d.service), date: d.date, from: g[0], to: Utilities.formatDate(plusHour(g[g.length - 1]), TZ, "HH:mm") };
       }
     });
     PropertiesService.getScriptProperties().setProperty("pending", JSON.stringify(pending));
@@ -93,6 +96,67 @@ function doPost(e) {
   } finally {
     lock.releaseLock();
   }
+}
+
+/** Antispam: al massimo MAX_PENDING richieste in attesa con lo stesso telefono o la stessa email. */
+const MAX_PENDING = 3;
+function tooManyPending_(d) {
+  const digits = (s) => String(s || "").replace(/\D/g, "");
+  const phone = digits(d.phone), email = String(d.email || "").trim().toLowerCase();
+  const pending = JSON.parse(PropertiesService.getScriptProperties().getProperty("pending") || "{}");
+  const same = Object.keys(pending).filter((id) => {
+    const p = pending[id];
+    return (email && p.email && p.email.toLowerCase() === email) || (phone && p.phone && p.phone === phone);
+  });
+  return same.length >= MAX_PENDING;
+}
+
+/**
+ * Contatore visite, senza cookie e senza dati personali: si salva solo
+ * "giorno + pagina = numero di visualizzazioni" nel foglio "Statistiche Global Studio".
+ */
+function statsSheet_() {
+  const props = PropertiesService.getScriptProperties();
+  let id = props.getProperty("statsId");
+  if (id) {
+    try { return SpreadsheetApp.openById(id).getSheets()[0]; } catch (err) { /* foglio eliminato: ne creo uno nuovo */ }
+  }
+  const ss = SpreadsheetApp.create("Statistiche Global Studio");
+  const sh = ss.getSheets()[0];
+  sh.appendRow(["Giorno", "Pagina", "Visualizzazioni"]);
+  sh.setFrozenRows(1);
+  props.setProperty("statsId", ss.getId());
+  return sh;
+}
+
+const PAGES = ["index", "servizi", "progetti", "about", "prezzi", "prenota", "lavora-con-noi", "regalo", "404"];
+function countHit_(page) {
+  page = String(page || "").replace(/\.html$/, "");
+  if (PAGES.indexOf(page) < 0) return { ok: false, error: "invalid" };
+  const sh = statsSheet_();
+  const day = Utilities.formatDate(new Date(), TZ, "yyyy-MM-dd");
+  const last = sh.getLastRow();
+  if (last > 1) {
+    const rows = sh.getRange(2, 1, last - 1, 3).getValues();
+    for (let i = rows.length - 1; i >= 0; i--) {
+      const rowDay = rows[i][0] instanceof Date ? Utilities.formatDate(rows[i][0], TZ, "yyyy-MM-dd") : String(rows[i][0]);
+      if (rowDay === day && rows[i][1] === page) {
+        sh.getRange(i + 2, 3).setValue(Number(rows[i][2]) + 1);
+        return { ok: true };
+      }
+    }
+  }
+  sh.appendRow([day, page, 1]);
+  return { ok: true };
+}
+
+/** Esegui dall'editor per vedere (nel log) il totale delle visite e l'indirizzo del foglio. */
+function statsReport() {
+  const sh = statsSheet_();
+  const rows = sh.getLastRow() > 1 ? sh.getRange(2, 1, sh.getLastRow() - 1, 3).getValues() : [];
+  const total = rows.reduce((n, r) => n + Number(r[2]), 0);
+  Logger.log("Visualizzazioni totali: " + total + "
+Foglio: " + sh.getParent().getUrl());
 }
 
 /**
