@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "claude-skills": {
+      "source": {
+        "source": "github",
+        "repo": "Nick-4040/claude-skills"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "mie-skill@claude-skills": true
+  }
+}
