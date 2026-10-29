@@ -91,15 +91,23 @@ function buildLayout() {
             </ul>
           </div>
           <div class="map-wrap reveal" data-reveal="zoom">
-            <iframe src="${mapSrc}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mappa Global Studio" allowfullscreen></iframe>
+            <div class="map-consent">
+              <p>La mappa è fornita da Google: caricandola, Google riceve il tuo indirizzo IP e può impostare cookie. <a href="privacy.html#cookie">Cookie policy</a></p>
+              <button type="button" class="btn btn-gold" data-map-src="${mapSrc}">Mostra la mappa</button>
+            </div>
           </div>
         </div>
         <div class="footer-bottom">
-          <span>© ${new Date().getFullYear()} Global Studio — Parma</span>
+          <span>© ${new Date().getFullYear()} Global Studio — Parma · <a href="privacy.html">Privacy policy</a> · <a href="privacy.html#cookie">Cookie policy</a></span>
           <span>Prod · Rec · Mix · Master · Foto · Video</span>
         </div>
       </div>
       <div class="footer-big">Global Studio</div>`;
+    // Google Maps si carica solo dopo il clic: prima nessun dato va a Google
+    const mapBtn = footer.querySelector("[data-map-src]");
+    mapBtn.addEventListener("click", () => {
+      mapBtn.parentElement.outerHTML = `<iframe src="${mapBtn.dataset.mapSrc}" referrerpolicy="no-referrer-when-downgrade" title="Mappa Global Studio" allowfullscreen></iframe>`;
+    });
   }
 
   const wa = document.createElement("a");

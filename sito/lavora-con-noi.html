@@ -6,10 +6,8 @@
   <title>Lavora con noi — Global Studio</title>
   <meta name="description" content="Entra nel team di Global Studio: fonici, producer, fotografi, videomaker e social media manager.">
   <link rel="icon" href="assets/img/logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=3">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <link rel="stylesheet" href="assets/css/style.css?v=4">
 </head>
 <body data-page="lavora-con-noi.html">
   <header id="site-header"></header>
@@ -47,7 +45,7 @@
         <form class="panel reveal" id="job-form" novalidate>
           <div class="form-grid">
             <div class="field"><label for="j-name">Nome e cognome</label><input id="j-name" required></div>
-            <div class="field"><label for="j-age">Età</label><input id="j-age" type="number" min="14" max="99"></div>
+            <div class="field"><label for="j-age">Età</label><input id="j-age" type="number" min="16" max="99"></div>
             <div class="field full"><label for="j-role">Ruolo</label>
               <select id="j-role">
                 <option>Fonico / Sound engineer</option>
@@ -61,6 +59,7 @@
             <div class="field full"><label for="j-link">Portfolio / link</label><input id="j-link" placeholder="https://"></div>
             <div class="field full"><label for="j-msg">Su di te</label><textarea id="j-msg" required placeholder="Esperienze, software che usi, disponibilità..."></textarea></div>
           </div>
+          <p class="form-privacy">Requisito minimo: 16 anni. La candidatura viene inviata tramite WhatsApp e la usiamo solo per valutare la collaborazione. Leggi l'<a href="privacy.html#candidature">informativa privacy</a>.</p>
           <button class="btn btn-primary" style="margin-top:20px" type="submit">Invia candidatura</button>
           <div class="form-msg" aria-live="polite"></div>
         </form>
@@ -69,7 +68,7 @@
   </main>
 
   <footer id="site-footer"></footer>
-  <script src="assets/js/main.js?v=4"></script>
+  <script src="assets/js/main.js?v=5"></script>
   <script>
     const form = document.getElementById("job-form");
     const msg = form.querySelector(".form-msg");
@@ -82,6 +81,11 @@
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const v = (id) => document.getElementById(id).value.trim();
+      if (v("j-age") && Number(v("j-age")) < 16) {
+        msg.className = "form-msg err";
+        msg.textContent = "Per candidarti devi avere almeno 16 anni.";
+        return;
+      }
       if (!v("j-name") || !v("j-msg")) {
         msg.className = "form-msg err";
         msg.textContent = "Inserisci almeno nome e qualcosa su di te.";
