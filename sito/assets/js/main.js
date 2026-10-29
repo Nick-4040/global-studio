@@ -269,6 +269,17 @@ function interactions() {
   });
 }
 
+/* ---------- photo reels: duplicate items so the loop never shows a gap ---------- */
+function reels() {
+  document.querySelectorAll(".reel-track").forEach((track) => {
+    [...track.children].forEach((el) => {
+      const copy = el.cloneNode(true);
+      copy.setAttribute("aria-hidden", "true");
+      track.appendChild(copy);
+    });
+  });
+}
+
 /* ---------- lightbox for galleries ---------- */
 function lightbox() {
   const items = document.querySelectorAll("[data-lightbox] img");
@@ -538,6 +549,7 @@ document.addEventListener("DOMContentLoaded", () => {
   counters();
   scrollFx();
   interactions();
+  reels();
   lightbox();
   tabs();
   videoSound();
