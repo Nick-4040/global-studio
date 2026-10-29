@@ -294,6 +294,19 @@ p { margin: 0 0 1.1em; color: var(--muted); }
   text-transform: uppercase; white-space: nowrap; pointer-events: none;
 }
 
+/* page hero con video di sfondo (about) */
+.page-hero-video { position: absolute; inset: 0; z-index: -2; }
+.page-hero-video video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.page-hero-video::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(7, 4, 15, .85) 0%, rgba(7, 4, 15, .55) 55%, rgba(7, 4, 15, .35) 100%),
+    linear-gradient(180deg, rgba(7, 4, 15, .3) 0%, transparent 40%, var(--bg) 100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-hero-video { display: none; }
+}
+
 /* ==========================================================
    MARQUEE
    ========================================================== */
