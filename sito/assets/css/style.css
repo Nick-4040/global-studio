@@ -757,8 +757,3 @@ p { margin: 0 0 1.1em; color: var(--muted); }
   .trio { gap: 10px; aspect-ratio: 1; }
   .artist-tags { margin-left: 0; }
 }
-
-/* fondatore (about) */
-.founder .media { cursor: zoom-in; }
-.founder-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }
-.founder-shots .media { aspect-ratio: 16 / 10; }
