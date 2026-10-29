@@ -722,3 +722,22 @@ p { margin: 0 0 1.1em; color: var(--muted); }
 @media (max-width: 600px) {
   #intro .intro-hud { width: 90%; white-space: normal; letter-spacing: .25em; font-size: .62rem; line-height: 1.8; }
 }
+
+/* artisti passati da qui: una foto grande + quattro piccole */
+.artist { padding-top: clamp(48px, 7vw, 90px); }
+.artist-head { display: flex; align-items: baseline; gap: 18px; padding-bottom: 20px; margin-bottom: 24px; border-bottom: 1px solid var(--line); }
+.artist-head .num { font-family: var(--font-display); color: var(--gold-2); letter-spacing: .2em; }
+.artist-head h3 { margin: 0; font-size: clamp(2.2rem, 5vw, 4rem); }
+.artist-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.artist-grid .media { aspect-ratio: 3 / 4; cursor: zoom-in; }
+.artist-grid .media:first-child { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
+.artist-grid .media:first-child img { position: absolute; inset: 0; }
+@media (max-width: 760px) {
+  .artist-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .artist-grid .media:first-child { grid-row: auto; aspect-ratio: 4 / 5; }
+}
+
+/* fondatore (about) */
+.founder .media { cursor: zoom-in; }
+.founder-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }
+.founder-shots .media { aspect-ratio: 16 / 10; }
