@@ -269,14 +269,21 @@ function interactions() {
   });
 }
 
-/* ---------- photo reels: duplicate items so the loop never shows a gap ---------- */
+/* ---------- photo reels: duplicate the set so the loop never shows a gap ---------- */
 function reels() {
+  const vw = Math.max(window.innerWidth, window.screen.width);
   document.querySelectorAll(".reel-track").forEach((track) => {
-    [...track.children].forEach((el) => {
-      const copy = el.cloneNode(true);
-      copy.setAttribute("aria-hidden", "true");
-      track.appendChild(copy);
-    });
+    const set = [...track.children];
+    const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    // the first half must be at least as wide as the screen: add more copies only if the photos alone are not enough
+    const copies = Math.max(1, Math.ceil(vw / (track.scrollWidth + gap))) * 2 - 1;
+    for (let i = 0; i < copies; i++) {
+      set.forEach((el) => {
+        const copy = el.cloneNode(true);
+        copy.setAttribute("aria-hidden", "true");
+        track.appendChild(copy);
+      });
+    }
   });
 }
 
