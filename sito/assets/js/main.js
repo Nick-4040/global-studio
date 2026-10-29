@@ -70,7 +70,6 @@ function buildLayout() {
 
   const footer = document.getElementById("site-footer");
   if (footer) {
-    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.mapsQuery)}`;
     const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(SITE.mapsQuery)}&hl=it&z=16&output=embed`;
     footer.className = "site-footer";
     footer.innerHTML = `
@@ -98,7 +97,6 @@ function buildLayout() {
               <span class="map-hint">Tocca per usare la mappa · si carica da Google</span>
               <span class="map-attrib">Dati mappa ©2026 Google</span>
             </button>
-            <a class="map-cta" href="${mapsUrl}" target="_blank" rel="noopener noreferrer">Apri su Google Maps</a>
           </div>
         </div>
         <div class="footer-bottom">
