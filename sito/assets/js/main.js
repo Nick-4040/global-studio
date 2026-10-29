@@ -70,7 +70,7 @@ function buildLayout() {
 
   const footer = document.getElementById("site-footer");
   if (footer) {
-    const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(SITE.mapsQuery)}&z=16&output=embed`;
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.mapsQuery)}`;
     footer.className = "site-footer";
     footer.innerHTML = `
       <div class="container">
@@ -90,12 +90,12 @@ function buildLayout() {
                 <span><small>Dove siamo</small>${SITE.address}</span></a></li>
             </ul>
           </div>
-          <div class="map-wrap reveal" data-reveal="zoom">
-            <div class="map-consent">
-              <p>La mappa è fornita da Google: caricandola, Google riceve il tuo indirizzo IP e può impostare cookie. <a href="privacy.html#cookie">Cookie policy</a></p>
-              <button type="button" class="btn btn-gold" data-map-src="${mapSrc}">Mostra la mappa</button>
-            </div>
-          </div>
+          <a class="map-wrap map-static reveal" data-reveal="zoom" href="${mapsUrl}" target="_blank" rel="noopener noreferrer" aria-label="Apri la posizione su Google Maps">
+            <!-- immagine statica: nessuna richiesta a Google finché non si clicca -->
+            <img src="assets/img/mappa.webp" alt="Mappa: ${SITE.address}" loading="lazy">
+            <span class="map-attrib">Dati mappa ©2026 Google</span>
+            <span class="map-cta">Apri su Google Maps</span>
+          </a>
         </div>
         <div class="footer-bottom">
           <span>© ${new Date().getFullYear()} Global Studio — Parma · <a href="privacy.html">Privacy policy</a> · <a href="privacy.html#cookie">Cookie policy</a></span>
@@ -103,11 +103,6 @@ function buildLayout() {
         </div>
       </div>
       <div class="footer-big">Global Studio</div>`;
-    // Google Maps si carica solo dopo il clic: prima nessun dato va a Google
-    const mapBtn = footer.querySelector("[data-map-src]");
-    mapBtn.addEventListener("click", () => {
-      mapBtn.parentElement.outerHTML = `<iframe src="${mapBtn.dataset.mapSrc}" referrerpolicy="no-referrer-when-downgrade" title="Mappa Global Studio" allowfullscreen></iframe>`;
-    });
   }
 
   const wa = document.createElement("a");
