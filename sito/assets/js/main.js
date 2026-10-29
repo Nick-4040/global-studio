@@ -5,7 +5,6 @@ const SITE = {
   phone: "+39 331 872 9602",
   whatsapp: "393318729602",
   instagram: "https://www.instagram.com/globalstudio.eu/",
-  instagramTagged: "https://www.instagram.com/globalstudio.eu/tagged/",
   address: "Piazzale Ravenet, 3, 43125 Parma PR",
   mapsQuery: "Piazzale Ravenet 3, 43125 Parma",
 };
