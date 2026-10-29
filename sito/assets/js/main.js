@@ -71,6 +71,7 @@ function buildLayout() {
   const footer = document.getElementById("site-footer");
   if (footer) {
     const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.mapsQuery)}`;
+    const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(SITE.mapsQuery)}&hl=it&z=16&output=embed`;
     footer.className = "site-footer";
     footer.innerHTML = `
       <div class="container">
@@ -90,12 +91,15 @@ function buildLayout() {
                 <span><small>Dove siamo</small>${SITE.address}</span></a></li>
             </ul>
           </div>
-          <a class="map-wrap map-static reveal" data-reveal="zoom" href="${mapsUrl}" target="_blank" rel="noopener noreferrer" aria-label="Apri la posizione su Google Maps">
-            <!-- immagine statica: nessuna richiesta a Google finché non si clicca -->
-            <img src="assets/img/mappa.webp" alt="Mappa: ${SITE.address}" loading="lazy">
-            <span class="map-attrib">Dati mappa ©2026 Google</span>
-            <span class="map-cta">Apri su Google Maps</span>
-          </a>
+          <div class="map-wrap map-static reveal" data-reveal="zoom">
+            <!-- anteprima statica: Google Maps si carica solo al primo tocco -->
+            <button type="button" class="map-activate" data-map-src="${mapSrc}" aria-label="Attiva la mappa interattiva di Google Maps">
+              <img src="assets/img/mappa.webp" alt="Mappa: ${SITE.address}" loading="lazy">
+              <span class="map-hint">Tocca per usare la mappa · si carica da Google</span>
+              <span class="map-attrib">Dati mappa ©2026 Google</span>
+            </button>
+            <a class="map-cta" href="${mapsUrl}" target="_blank" rel="noopener noreferrer">Apri su Google Maps</a>
+          </div>
         </div>
         <div class="footer-bottom">
           <span>© ${new Date().getFullYear()} Global Studio — Parma · <a href="privacy.html">Privacy policy</a> · <a href="privacy.html#cookie">Cookie policy</a></span>
@@ -103,6 +107,11 @@ function buildLayout() {
         </div>
       </div>
       <div class="footer-big">Global Studio</div>`;
+    // Al primo tocco l'anteprima diventa la mappa interattiva: prima nessun dato va a Google
+    const mapBtn = footer.querySelector(".map-activate");
+    mapBtn.addEventListener("click", () => {
+      mapBtn.outerHTML = `<iframe src="${mapBtn.dataset.mapSrc}" referrerpolicy="no-referrer-when-downgrade" title="Mappa Global Studio" allowfullscreen></iframe>`;
+    });
   }
 
   const wa = document.createElement("a");
