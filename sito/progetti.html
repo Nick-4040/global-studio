@@ -31,43 +31,50 @@
       </div>
     </section>
 
-    <!-- ARTISTI passati da qui: per aggiungerne uno copia un <article class="artist">
-         e genera le foto con strumenti/foto-artisti.py -->
-    <section class="section">
+    <!-- ARTISTI passati da qui: per aggiungerne uno copia un <article class="artist-stage">,
+         cambia data-name, numero e nome, e genera le 3 foto con strumenti/foto-artisti.py
+         (01 = foto principale, 02 = seconda, 03 = dettaglio quadrato) -->
+    <section class="section artists">
       <div class="container">
         <span class="eyebrow reveal">Gli artisti</span>
         <h2 class="split-words">Chi è <span class="grad">passato</span></h2>
 
-        <article class="artist">
-          <header class="artist-head reveal"><span class="num">01</span><h3>Bello Figo</h3></header>
-          <div class="artist-grid" data-lightbox>
-            <div class="media reveal"><img src="assets/img/artisti/bello-figo/01.webp" alt="Bello Figo sul divano sotto il globo" loading="lazy"></div>
-            <div class="media reveal"><img src="assets/img/artisti/bello-figo/02.webp" alt="Bello Figo al microfono" loading="lazy"></div>
-            <div class="media reveal" style="transition-delay:.1s"><img src="assets/img/artisti/bello-figo/03.webp" alt="Bello Figo in studio" loading="lazy"></div>
-            <div class="media reveal"><img src="assets/img/artisti/bello-figo/04.webp" alt="Bello Figo seduto in regia" loading="lazy"></div>
-            <div class="media reveal" style="transition-delay:.1s"><img src="assets/img/artisti/bello-figo/05.webp" alt="Ritratto di Bello Figo" loading="lazy"></div>
+        <article class="artist-stage" data-name="Bello Figo">
+          <div class="collage reveal" data-reveal="zoom" data-lightbox>
+            <div class="media c1"><img src="assets/img/artisti/bello-figo/01.webp" alt="Bello Figo sul divano sotto il globo" loading="lazy"></div>
+            <div class="media c2"><img src="assets/img/artisti/bello-figo/02.webp" alt="Bello Figo al microfono" loading="lazy"></div>
+            <div class="media c3"><img src="assets/img/artisti/bello-figo/03.webp" alt="Bello Figo con il telefono in mano" loading="lazy"></div>
+          </div>
+          <div class="artist-info reveal">
+            <span class="num">01</span>
+            <h3>Bello Figo</h3>
+            <div class="artist-tags"><span>Sessione in studio</span><span>Ottobre 2026</span></div>
           </div>
         </article>
 
-        <article class="artist">
-          <header class="artist-head reveal"><span class="num">02</span><h3>SpookyPBL</h3></header>
-          <div class="artist-grid" data-lightbox>
-            <div class="media reveal"><img src="assets/img/artisti/spookypbl/01.webp" alt="SpookyPBL sul divano sotto il globo" loading="lazy"></div>
-            <div class="media reveal"><img src="assets/img/artisti/spookypbl/02.webp" alt="SpookyPBL in regia" loading="lazy"></div>
-            <div class="media reveal" style="transition-delay:.1s"><img src="assets/img/artisti/spookypbl/03.webp" alt="SpookyPBL al microfono" loading="lazy"></div>
-            <div class="media reveal"><img src="assets/img/artisti/spookypbl/04.webp" alt="SpookyPBL sul divano dello studio" loading="lazy"></div>
-            <div class="media reveal" style="transition-delay:.1s"><img src="assets/img/artisti/spookypbl/05.webp" alt="SpookyPBL nella chill area" loading="lazy"></div>
+        <article class="artist-stage" data-name="SpookyPBL">
+          <div class="collage reveal" data-reveal="zoom" data-lightbox>
+            <div class="media c1"><img src="assets/img/artisti/spookypbl/01.webp" alt="SpookyPBL sul divano sotto il globo" loading="lazy"></div>
+            <div class="media c2"><img src="assets/img/artisti/spookypbl/02.webp" alt="SpookyPBL al microfono" loading="lazy"></div>
+            <div class="media c3"><img src="assets/img/artisti/spookypbl/03.webp" alt="Le mani di SpookyPBL sul controller nella chill area" loading="lazy"></div>
+          </div>
+          <div class="artist-info reveal">
+            <span class="num">02</span>
+            <h3>SpookyPBL</h3>
+            <div class="artist-tags"><span>Sessione in studio</span><span>Ottobre 2026</span></div>
           </div>
         </article>
 
-        <article class="artist">
-          <header class="artist-head reveal"><span class="num">03</span><h3>Chiaraa</h3></header>
-          <div class="artist-grid" data-lightbox>
-            <div class="media reveal"><img src="assets/img/artisti/chiaraa/01.webp" alt="Chiaraa accanto al globo" loading="lazy"></div>
-            <div class="media reveal"><img src="assets/img/artisti/chiaraa/02.webp" alt="Chiaraa al microfono in sala di registrazione" loading="lazy"></div>
-            <div class="media reveal" style="transition-delay:.1s"><img src="assets/img/artisti/chiaraa/03.webp" alt="Chiaraa in regia" loading="lazy"></div>
-            <div class="media reveal"><img src="assets/img/artisti/chiaraa/04.webp" alt="Chiaraa vista dalla regia attraverso il vetro" loading="lazy"></div>
-            <div class="media reveal" style="transition-delay:.1s"><img src="assets/img/artisti/chiaraa/05.webp" alt="Chiaraa con le cuffie al microfono" loading="lazy"></div>
+        <article class="artist-stage" data-name="Chiaraa">
+          <div class="collage reveal" data-reveal="zoom" data-lightbox>
+            <div class="media c1"><img src="assets/img/artisti/chiaraa/01.webp" alt="Chiaraa accanto al globo" loading="lazy"></div>
+            <div class="media c2"><img src="assets/img/artisti/chiaraa/02.webp" alt="Chiaraa vista dalla regia attraverso il vetro" loading="lazy"></div>
+            <div class="media c3"><img src="assets/img/artisti/chiaraa/03.webp" alt="Chiaraa con le cuffie al microfono" loading="lazy"></div>
+          </div>
+          <div class="artist-info reveal">
+            <span class="num">03</span>
+            <h3>Chiaraa</h3>
+            <div class="artist-tags"><span>Sessione in studio</span><span>Ottobre 2026</span></div>
           </div>
         </article>
       </div>

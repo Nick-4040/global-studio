@@ -723,18 +723,47 @@ p { margin: 0 0 1.1em; color: var(--muted); }
   #intro .intro-hud { width: 90%; white-space: normal; letter-spacing: .25em; font-size: .62rem; line-height: 1.8; }
 }
 
-/* artisti passati da qui: una foto grande + quattro piccole */
-.artist { padding-top: clamp(48px, 7vw, 90px); }
-.artist-head { display: flex; align-items: baseline; gap: 18px; padding-bottom: 20px; margin-bottom: 24px; border-bottom: 1px solid var(--line); }
-.artist-head .num { font-family: var(--font-display); color: var(--gold-2); letter-spacing: .2em; }
-.artist-head h3 { margin: 0; font-size: clamp(2.2rem, 5vw, 4rem); }
-.artist-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-.artist-grid .media { aspect-ratio: 3 / 4; cursor: zoom-in; }
-.artist-grid .media:first-child { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
-.artist-grid .media:first-child img { position: absolute; inset: 0; }
-@media (max-width: 760px) {
-  .artist-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .artist-grid .media:first-child { grid-row: auto; aspect-ratio: 4 / 5; }
+/* artisti passati da qui: collage di tre foto + nome gigante sullo sfondo */
+.artists { overflow-x: clip; }
+.artist-stage {
+  position: relative; display: grid; grid-template-columns: 1.15fr .85fr;
+  gap: clamp(32px, 6vw, 90px); align-items: center; padding: clamp(60px, 9vw, 120px) 0;
+}
+.artist-stage::before {
+  content: attr(data-name); position: absolute; z-index: -1; left: 50%; top: 50%;
+  transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none;
+  font-family: var(--font-display); text-transform: uppercase; line-height: 1;
+  font-size: clamp(6rem, 19vw, 17rem); color: transparent;
+  -webkit-text-stroke: 1px rgba(176, 107, 255, .16);
+}
+.artist-stage:nth-of-type(even) .collage { order: 2; }
+.collage { position: relative; aspect-ratio: 1; }
+.collage .media {
+  position: absolute; cursor: zoom-in;
+  border: 6px solid var(--bg); box-shadow: 0 30px 80px -20px rgba(0,0,0,.85);
+  transition: transform .9s var(--ease), box-shadow .6s;
+}
+.collage .c1 { width: 58%; aspect-ratio: 3 / 4; left: 4%; top: 6%; transform: rotate(-4deg); z-index: 2; }
+.collage .c2 { width: 42%; aspect-ratio: 3 / 4; right: 2%; top: 0; transform: rotate(5deg); z-index: 1; }
+.collage .c3 { width: 40%; aspect-ratio: 1; right: 9%; bottom: 0; transform: rotate(-2deg); z-index: 3; }
+.collage:hover .c1 { transform: rotate(-1deg) translate(-12px, -6px); }
+.collage:hover .c2 { transform: rotate(2deg) translate(14px, -12px); }
+.collage:hover .c3 { transform: rotate(1deg) translate(10px, 12px); }
+.collage .media:hover { z-index: 4; box-shadow: 0 40px 90px -20px rgba(123, 60, 255, .6); }
+.artist-info .num {
+  display: block; font-family: var(--font-display); line-height: 1; letter-spacing: .04em;
+  font-size: clamp(3rem, 6vw, 5rem); color: transparent; -webkit-text-stroke: 1.5px var(--gold-2);
+}
+.artist-info h3 { font-size: clamp(3rem, 7vw, 6.5rem); margin: .15em 0 .3em; }
+.artist-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+.artist-tags span {
+  padding: .45em 1.1em; border-radius: 999px; border: 1px solid var(--line);
+  font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--muted);
+}
+@media (max-width: 860px) {
+  .artist-stage { grid-template-columns: 1fr; gap: 28px; padding: 48px 0; }
+  .artist-stage:nth-of-type(even) .collage { order: 0; }
+  .artist-stage::before { top: 22%; }
 }
 
 /* fondatore (about) */
