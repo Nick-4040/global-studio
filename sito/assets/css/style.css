@@ -294,8 +294,7 @@ p { margin: 0 0 1.1em; color: var(--muted); }
   text-transform: uppercase; white-space: nowrap; pointer-events: none;
 }
 
-/* page hero con video di sfondo (about): il video è verticale, quindi su desktop
-   sta a destra con le sue proporzioni invece di essere ingrandito a tutta larghezza */
+/* page hero con video di sfondo (about, progetti) */
 .page-hero-video { position: absolute; inset: 0; z-index: -2; }
 .page-hero-video video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
 .page-hero-video::after {
@@ -303,20 +302,6 @@ p { margin: 0 0 1.1em; color: var(--muted); }
   background:
     linear-gradient(90deg, rgba(7, 4, 15, .85) 0%, rgba(7, 4, 15, .55) 55%, rgba(7, 4, 15, .35) 100%),
     linear-gradient(180deg, rgba(7, 4, 15, .3) 0%, transparent 40%, var(--bg) 100%);
-}
-@media (min-width: 900px) {
-  .page-hero-video { left: auto; width: min(52vh, 34vw); aspect-ratio: 720 / 898; height: auto; top: 0; bottom: 0; right: 4vw; margin: auto 0; max-height: 100%; }
-  .page-hero-video video { object-fit: contain; border-radius: 28px; }
-  .page-hero-video::after {
-    border-radius: 28px;
-    background:
-      linear-gradient(90deg, var(--bg) 0%, rgba(7, 4, 15, .2) 40%, transparent 100%),
-      linear-gradient(180deg, transparent 70%, var(--bg) 100%);
-  }
-}
-@media (min-width: 900px) {
-  /* video 9:16 (Progetti): alto come l'hero, largo di conseguenza */
-  .page-hero-video.tall { width: auto; height: 82%; aspect-ratio: 9 / 16; top: auto; bottom: 6%; margin: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .page-hero-video { display: none; }
