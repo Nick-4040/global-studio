@@ -314,6 +314,10 @@ p { margin: 0 0 1.1em; color: var(--muted); }
       linear-gradient(180deg, transparent 70%, var(--bg) 100%);
   }
 }
+@media (min-width: 900px) {
+  /* video 9:16 (Progetti): alto come l'hero, largo di conseguenza */
+  .page-hero-video.tall { width: auto; height: 82%; aspect-ratio: 9 / 16; top: auto; bottom: 6%; margin: 0; }
+}
 @media (prefers-reduced-motion: reduce) {
   .page-hero-video { display: none; }
 }
